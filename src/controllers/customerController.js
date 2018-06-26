@@ -26,5 +26,22 @@ controller.add = (req,res)=>{
     });
   });
 }
+controller.edit = (req,res)=>{
+
+}
+
+controller.delete = (req,res)=>{
+  const id = req.params.id;
+  req.getConnection((err,conn)=>{
+    conn.query('delete from customer where id = ?',[id],(err,rows)=>{
+      if(err){
+        console.log(err);
+        return;
+      }
+      res.redirect('/');
+
+    })
+  })
+}
 
 module.exports = controller;
