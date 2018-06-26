@@ -3,6 +3,7 @@ const path = require('path');
 const morgan = require('morgan');
 const mysql = require('mysql');
 const myConnection = require('express-myconnection');
+const customerRoutes = require('./routes/customer');
 const app = express();
 
 //Settings
@@ -20,6 +21,12 @@ app.use(myConnection(mysql,{
   database:'crud_node_mysql'
 },'single'));
 
+//routes
+app.use('/',customerRoutes);
+
+//Static files
+app.use(express.static(path.join(__dirname,'public')));
+//starting server
 app.listen(app.get('port'),()=>{
   console.log('Server on port: ',app.get('port'));
 });
